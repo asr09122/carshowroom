@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section id="new-cars" class="new-cars">
+    <div class="container">
+        <div class="section-header">
+            <p>checkout <span>the</span> latest cars</p>
+            <h2>newest cars</h2>
+        </div><!--/.section-header-->
+        <div class="new-cars-content">
+            <div class="owl-carousel owl-theme" id="new-cars-carousel">
+                {% for car in cars|slice:"-3:"%}
+                <div class="new-cars-item">
+                    <div class="single-new-cars-item">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-12">
+                                <div class="new-cars-img">
+                                    <img src="{{ car.image.url }}" alt="{{ car.Car_name }}"/>
+                                </div><!--/.new-cars-img-->
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <div class="new-cars-txt">
+                                    <h2><a href="#">{{ car.Car_name }}</a></h2>
+                                    <p>{{ car.desc }}</p>
+                                    <p class="new-cars-para2">Year: {{ car.year }}, Body Type: {{ car.bodytype }}, Condition: {{ car.Condition }}, Price: {{ car.price }}</p>
+                                    <button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">view details</button>
+                                </div><!--/.new-cars-txt-->
+                            </div><!--/.col-->
+                        </div><!--/.row-->
+                    </div><!--/.single-new-cars-item-->
+                </div><!--/.new-cars-item-->
+                {%endfor%}
+            </div><!--/.new-cars-item-->
+        </div><!--/#new-cars-carousel-->
+    </div><!--/.container-->
+</section><!--/#new-cars-->
+
+
+</body>
+</html>
