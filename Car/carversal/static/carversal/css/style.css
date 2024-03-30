@@ -256,6 +256,23 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
 .welcome-btn:hover{
     background: #0102fa;
 }
+.responsive-btn {
+    display: inline-block;
+    width: 230px;
+    height: 60px;
+    background: #4e4ffa;
+    color: #fff;
+    border-radius: 3px;
+    margin-top: 55px;
+    -webkit-transition: .3s linear;
+    -moz-transition:.3s linear;
+    -ms-transition:.3s linear;
+    -o-transition:.3s linear;
+    transition: .3s linear;
+}
+.responsive-btn:hover{
+    background: #0102fa;
+}
 /*.welcome-hero-txt*/
 
 /*-------------------------------------
@@ -316,9 +333,17 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
 }/*model-select-icon*/
 .welcome-btn.model-search-btn {
     width: 160px;
-    margin-top: 80px;
+    margin-top: 30px;
     margin-left: 53px;
 }
+
+.responsive-btn.model-search-btn {
+    width: 160px;
+    margin-top: 30px;
+    margin-left: 53px;
+}
+
+
 
 /*.single-model-search*/
 

@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from .models import Car
-
-
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.contrib import messages
+from django.urls import reverse
+from django.contrib.auth import authenticate,login,logout
+User = get_user_model()
 def index(request):
     car = Car.objects.all()
     n = len(car)
@@ -38,3 +42,8 @@ def search(request):
     context = {'cars': filtered_cars}
     print(context)
     return render(request, "carversal/search.html", context)
+
+def signup(request):
+    return render(request, 'carversal/signup.html')
+def login(request):
+    return render(request, 'carversal/login.html')

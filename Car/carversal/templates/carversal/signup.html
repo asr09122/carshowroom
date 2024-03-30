@@ -1,0 +1,44 @@
+{% extends 'carversal/template.html' %}
+
+{% block form %}
+<section id="service" class="service">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="model-search-content">
+                    <div class="row">
+                        <div class="col-md-offset-1 col-md-10 col-sm-12">
+                            <div class="single-model-search">
+                                <!-- Your form content goes here -->
+                                <h1 class="text-center" style="font-size: 24px; font-weight: bold;">Signup</h1> <!-- Center-align the heading, increase font size, and make it bold -->
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="username">Username:</label>
+                                        <input type="text" class="form-control" id="username" name="username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input type="email" class="form-control" id="email" name="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password:</label>
+                                        <input type="password" class="form-control" id="password" name="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="age">Age:</label>
+                                        <input type="number" class="form-control" id="age" name="age">
+                                    </div>
+                                    <div class="text-center mt-3"> <!-- Add margin top for spacing -->
+                                        <button type="submit" class="welcome-btn model-search-btn" style="padding-top: 0;">Signup</button> <!-- Set top padding to zero -->
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
