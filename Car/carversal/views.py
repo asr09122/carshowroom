@@ -6,8 +6,10 @@ from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth import authenticate,logout
 from django.contrib.auth import login as auth_login
-User = get_user_model()
+from django.contrib.auth.decorators import login_required
 
+User = get_user_model()
+@login_required
 def index(request):
     car = Car.objects.all()
     n = len(car)
