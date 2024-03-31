@@ -11,7 +11,7 @@
                             <div class="single-model-search">
                                 <!-- Your form content goes here -->
                                 <h1 class="text-center" style="font-size: 24px; font-weight: bold;">Login</h1>
-                                <form method="post">
+                                <form method="post" action="{% url 'carversal:login' %}">
                                     {% csrf_token %}
                                     <div class="form-group">
                                         <label for="username">Username:</label>
