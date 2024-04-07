@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from carversal import views
 
 urlpatterns = [
-    path("", views.login,name='car'),
+    path("", views.user_login, name='car'),
     path("admin/", admin.site.urls),
     path("car/", include("carversal.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

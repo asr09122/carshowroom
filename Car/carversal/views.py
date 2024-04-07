@@ -4,11 +4,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.urls import reverse
-from django.contrib.auth import authenticate,logout
+from django.contrib.auth import authenticate, logout as auth_logout
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
-
+from django.utils import timezone
 User = get_user_model()
+
+
 @login_required
 def index(request):
     car = Car.objects.all()
@@ -16,7 +18,7 @@ def index(request):
     if n <= 3:
         v = n
     else:
-        v = n-3
+        v = n - 3
     last_three_cars = car.order_by('id')[v:]
     context = {'cars': last_three_cars}
     cars = {'cars': car, 'context': context}
@@ -47,6 +49,7 @@ def search(request):
     print(context)
     return render(request, "carversal/search.html", context)
 
+
 def signup(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -70,7 +73,9 @@ def signup(request):
             return redirect(reverse('carversal:signup'))
 
     return render(request, 'carversal/signup.html')
-def login(request):
+
+
+def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -82,3 +87,51 @@ def login(request):
             return redirect(reverse('carversal:Car'), fame=fname1)  # Passing fame as a keyword argument
 
     return render(request, 'carversal/login.html')
+
+
+@login_required
+def add_car(request):
+    if request.method == 'POST':
+        year = request.POST.get('year', '')
+        style = request.POST.get('style', '').lower()
+        make = request.POST.get('make', '').lower()
+        condition = request.POST.get('condition', '').lower()
+        model = request.POST.get('model', '').lower()
+        mileage = request.POST.get('mileage', '')
+        horsepower = request.POST.get('horsepower', '')
+        price = request.POST.get('price', '')
+        desc = request.POST.get('desc', '')
+        image = request.FILES.get('image')  # Get the uploaded image file
+
+        # Validate required fields including image
+        if model and make and year and style and condition and mileage and horsepower and price and desc and image:
+            # Create a new Car object with pub_date automatically set to today's date
+            car = Car.objects.create(
+                make=make,
+                model=model,
+                year=year,
+                style=style,
+                Condition=condition,
+                mileage=mileage,
+                horsepower=horsepower,
+                price=price,
+                desc=desc,
+                image=image,  # Assign the image file to the 'image' field
+                pub_date=timezone.now()  # Set pub_date to today's date
+            )
+            # Redirect to a success page or wherever you want
+            return redirect(reverse('carversal:add_car'))
+        else:
+            # If required fields are missing, handle the error (display error message or redirect back to form)
+            return render(request, 'carversal/index.html', {'error_message': 'Required fields are missing'})
+    else:
+        # If request method is not POST, render the form template
+        return render(request, 'carversal/upload.html')  # Replace 'add_car_form.html' with your actual template name
+
+
+
+
+def user_logout(request):
+    auth_logout(request)
+    return redirect(reverse('carversal:Car'))
+

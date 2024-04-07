@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class Car(models.Model):
     Car_id = models.AutoField
@@ -11,7 +12,7 @@ class Car(models.Model):
     Condition = models.CharField(max_length=50, default="")
     price = models.IntegerField(default=0)  # Set a default value for the price field
     desc = models.CharField(max_length=500)
-    pub_date = models.DateField()
+    pub_date = models.DateField(default=timezone.now)
     image = models.ImageField(upload_to="carversal/images", default="default_image.jpg")
 
 
