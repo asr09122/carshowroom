@@ -132,6 +132,13 @@ def add_car(request):
 
 
 def user_logout(request):
-    auth_logout(request)
-    return redirect(reverse('carversal:Car'))
+    if request.user.is_authenticated:
+        print("User is authenticated. Logging out...")
+        auth_logout(request)
+    else:
+        print("User is not authenticated. No need to logout.")
+
+    print("Redirecting to login page after logout...")
+    return redirect('carversal:login')
+
 
