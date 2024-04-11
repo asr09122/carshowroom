@@ -1,0 +1,33 @@
+{% extends 'carversal/template.html' %}
+{% block body %}
+    <!-- Add your existing content here -->
+
+    <!-- Cart Section -->
+    <div id="cart" class="cart" style="padding: 50px 0;">
+        <div class="container">
+            <div class="cart-content">
+                <h2 class="cart-title" style="font-size: 28px; text-align: center; margin-bottom: 30px;">Your Cart</h2>
+                <div class="card cart-items-container" style="box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); border-radius: 10px; padding: 20px;">
+                    {% for item in cart_items %}
+                        <div class="item-info" style="display: flex; align-items: center; border-bottom: 1px solid #ddd; padding: 10px 0;">
+                            <img src="{{ item.car.image.url }}" alt="{{ item.car.model }}" class="item-image" style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px; margin-right: 20px;">
+                            <div class="item-details">
+                                <h3>{{ item.car.make }} {{ item.car.model }}</h3>
+                                <p class="item-price" style="margin: 5px 0;">Price: Rs{{ item.car.price }}</p>
+                                <p class="item-quantity" style="margin: 5px 0;">Quantity: {{ item.quantity }}</p>
+                            </div>
+                            <div class="item-actions" style="margin-left: auto;">
+                                <a href="{% url 'carversal:remove_from_cart' item.id %}" class="btn-remove" style="background-color: #ff6347; color: #fff; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Remove</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="cart-summary" style="text-align: center; margin-top: 20px;">
+                    <h3 class="total-price" style="font-weight: bold; margin-bottom: 10px;">Total Price: Rs{{ total_price }}</h3>
+                    <a href="#" class="btn-checkout" style="background-color: #007bff; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">Proceed to Checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Cart Section -->
+{% endblock %}

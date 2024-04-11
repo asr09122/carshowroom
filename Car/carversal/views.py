@@ -1,5 +1,5 @@
-from .models import Car
-from django.shortcuts import render, redirect
+from .models import Car,CartItem
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.contrib import messages
@@ -13,17 +13,23 @@ User = get_user_model()
 
 @login_required
 def index(request):
-    car = Car.objects.all()
-    n = len(car)
+    cars = Car.objects.all()
+    n = len(cars)
     if n <= 3:
         v = n
     else:
         v = n - 3
-    last_three_cars = car.order_by('id')[v:]
+    last_three_cars = cars.order_by('id')[v:]
     context = {'cars': last_three_cars}
-    cars = {'cars': car, 'context': context}
+    sorted_cars = {
+        'year': {car.year for car in cars},
+        'style': {car.style for car in cars},
+        'make': {car.make for car in cars},
+        'condition': {car.Condition for car in cars},
+        'model': {car.model for car in cars}
+    }
+    cars = {'cars': cars, 'context': context, 'sorted': sorted_cars}
     return render(request, "carversal/index.html", cars)
-
 
 def search(request):
     year = request.GET.get('year', '')
@@ -31,7 +37,6 @@ def search(request):
     make = request.GET.get('make', '').lower()
     condition = request.GET.get('condition', '').lower()
     model = request.GET.get('model', '').lower()
-
     filtered_cars = Car.objects.all()
 
     if year:
@@ -46,7 +51,7 @@ def search(request):
         filtered_cars = filtered_cars.filter(model=model)
 
     context = {'cars': filtered_cars}
-    print(context)
+
     return render(request, "carversal/search.html", context)
 
 
@@ -141,4 +146,51 @@ def user_logout(request):
     print("Redirecting to login page after logout...")
     return redirect('carversal:login')
 
+@login_required
+def view_cart(request):
+    cart_items = CartItem.objects.filter(user=request.user)
+    total_price = sum(item.car.pre_booking_amount() * item.quantity for item in cart_items)
+    return render(request, 'carversal/cart.html', {'cart_items': cart_items, 'total_price': total_price})
 
+@login_required
+def add_to_cart(request, car_id):
+    car = Car.objects.get(id=car_id)
+    cart_item, created = CartItem.objects.get_or_create(car=car, user=request.user)
+    cart_item.quantity += 1
+    cart_item.save()
+    return redirect('carversal:vc')
+
+@login_required
+def remove_from_cart(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id)
+
+    # Decrease quantity by 1
+    if cart_item.quantity > 1:
+        cart_item.quantity -= 1
+        cart_item.save()
+    else:
+        cart_item.delete()  # If quantity is 1, remove the item from the cart
+
+    return redirect('carversal:vc')
+
+
+def details(request):
+    year = request.GET.get('year1', '')
+    style = request.GET.get('style1', '').lower()
+    make = request.GET.get('make1', '').lower()
+    condition = request.GET.get('condition1', '').lower()
+    model = request.GET.get('model1', '').lower()
+    filtered_cars = Car.objects.all()
+    if year:
+        filtered_cars = filtered_cars.filter(year=year)
+    if style:
+        filtered_cars = filtered_cars.filter(style=style)
+    if make:
+        filtered_cars = filtered_cars.filter(make=make)
+    if condition:
+        filtered_cars = filtered_cars.filter(Condition=condition)
+    if model:
+        filtered_cars = filtered_cars.filter(model=model)
+
+    context = {'cars': filtered_cars}
+    return render(request, "carversal/details.html", context)

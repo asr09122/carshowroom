@@ -13,13 +13,9 @@
                                 <div class="model-select-icon">
                                     <select class="form-control" name="year">
                                         <option value="default">year</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-										<option value="2021">2021</option>
-										<option value="2022">2022</option>
-										<option value="2023">2023</option>
-										<option value="2024">2024</option>
+                                        {% for year in sorted.year%}
+                                        <option value="{{year}}">{{year}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -28,9 +24,9 @@
                                 <div class="model-select-icon">
                                     <select class="form-control" name="style">
                                         <option value="default">style</option>
-                                        <option value="sedan">sedan</option>
-                                        <option value="suv">suv</option>
-                                        <option value="hatchback">hatchback</option>
+                                        {% for style in sorted.style%}
+                                        <option value="{{style}}">{{style}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -41,10 +37,9 @@
                                 <div class="model-select-icon">
                                     <select class="form-control" name="make">
                                         <option value="default">make</option>
-                                        <option value="Aston martin">Aston martin</option>
-                                        <option value="Bentley">Bentley</option>
-                                        <option value="Mercedes">Mercedes</option>
-										<option value="Chevorlet">Chevorlet</option>
+                                        {% for make in sorted.make%}
+                                        <option value="{{make}}">{{make}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -53,8 +48,9 @@
                                 <div class="model-select-icon">
                                     <select class="form-control" name="condition">
                                         <option value="default">condition</option>
-                                        <option value="Like New">Like new</option>
-                                        <option value="Mint">Mint</option>
+                                        {% for condition in sorted.condition%}
+                                        <option value="{{condition}}">{{condition}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -65,10 +61,9 @@
                                 <div class="model-select-icon">
                                     <select class="form-control" name="model">
                                         <option value="default">model</option>
-                                        <option value="Aston Martin Dbx7">Aston martin dbx7</option>
-                                        <option value="Bentley Flying Spur">Bentley Flying Spur</option>
-                                        <option value="Camaro Ss">Camaro Ss</option>
-										<option value="Brabus Rocket 900">Brabus Rocket 900</option>
+                                        {% for model in sorted.model%}
+                                        <option value="{{model}}">{{model}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -168,7 +163,10 @@
                                     <h2><a href="#">{{ car.Car_name }}</a></h2>
                                     <p>{{ car.desc }}</p>
                                     <p class="new-cars-para2">Year: {{ car.year }}, Body Type: {{ car.bodytype }}, Condition: {{ car.Condition }}, Price: {{ car.price }}</p>
-                                    <button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">view details</button>
+                                     <form action="{% url 'carversal:add_to_cart' car.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="welcome-btn new-cars-btn">Add to Cart</button>
+                                    </form>
                                 </div><!--/.new-cars-txt-->
                             </div><!--/.col-->
                         </div><!--/.row-->
@@ -184,7 +182,7 @@
 
 
 		<!--featured-cars start -->
-		<section id="featured-cars" class="featured-cars">
+	<section id="featured-cars" class="featured-cars">
     <div class="container">
         <div class="section-header">
             <p>checkout <span>the</span> featured cars</p>
@@ -192,37 +190,47 @@
         </div><!--/.section-header-->
         <div class="featured-cars-content">
             <div class="row">
-                {% for car in cars%}
+                {% for car in cars %}
                     <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-featured-cars">
-                            <div class="featured-img-box">
-                                <div class="featured-cars-img">
-                                    <img src="{{ car.image.url  }}" alt="cars">
-                                </div>
-                                <div class="featured-model-info">
-                                    <p>
-                                        model: {{ car.year }}
-                                        <span class="featured-mi-span"> {{ car.mileage }} mi</span>
-                                        <span class="featured-hp-span"> {{ car.horsepower }}HP</span>
+                        <form method="GET">
+                            <input type="hidden" name="year1" value="{{ car.year }}">
+                            <input type="hidden" name="style1" value="{{ car.style }}">
+                            <input type="hidden" name="make1" value="{{ car.make }}">
+                            <input type="hidden" name="condition1" value="{{ car.condition }}">
+                            <input type="hidden" name="model1" value="{{ car.model }}">
 
-                                    </p>
+                            <button type="submit" class="featured-car-button">
+                                <div class="single-featured-cars">
+                                    <div class="featured-img-box">
+                                        <div class="featured-cars-img">
+                                            <img src="{{ car.image.url }}" alt="cars">
+                                        </div>
+                                        <div class="featured-model-info">
+                                            <p>
+                                                model: {{ car.year }}
+                                                <span class="featured-mi-span">{{ car.mileage }} mi</span>
+                                                <span class="featured-hp-span">{{ car.horsepower }}HP</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="featured-cars-txt">
+                                        <h2><a href="#"><span>{{ car.model }}</span></a></h2>
+                                        <h3>Rs{{ car.price }}</h3>
+                                        <p>{{ car.description }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="featured-cars-txt">
-                                <h2><a href="#"><span>{{ car.model }}</span></a></h2>
-                                <h3>Rs{{ car.price }}</h3>
-                                <p>{{ car.description }}</p>
-                            </div>
-                        </div>
+                            </button>
+                        </form>
                     </div>
-                    {% if forloop.counter|divisibleby:4 and not forloop.last%}
+                    {% if forloop.counter|divisibleby:4 and not forloop.last %}
                         </div><div class="row">
-                    {%endif%}
-                {%endfor%}
+                    {% endif %}
+                {% endfor %}
             </div>
         </div><!--/.featured-cars-content-->
     </div><!--/.container-->
 </section><!--/.featured-cars-->
+
 
 		<!-- clients-say strat -->
 		<section id="clients-say"  class="clients-say">

@@ -1,6 +1,5 @@
 {% extends 'carversal/template.html' %}
 {% block body %}
-{%for car in cars %}
 <section id="new-cars" class="new-cars">
     <div class="container">
         <div class="section-header">
@@ -8,7 +7,6 @@
             <h1>{{car.model}}</h1>
         </div><!--/.section-header-->
         <div class="new-cars-content">
-            {% for car in cars %}
             <div class="new-cars-item">
                 <div class="single-new-cars-item">
                     <div class="row">
@@ -22,18 +20,13 @@
                                 <h2><a href="#">{{ car.Car_name }}</a></h2>
                                 <p>{{ car.desc }}</p>
                                 <p class="new-cars-para2">Year: {{ car.year }}, Body Type: {{ car.bodytype }}, Condition: {{ car.Condition }}, Price: {{ car.price }}</p>
-                                 <form action="{% url 'carversal:add_to_cart' car.id %}" method="post">
-                                        {% csrf_token %}
-                                        <button type="submit" class="welcome-btn new-cars-btn">Add to Cart</button>
-                                    </form>
+                                <button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">view details</button>
                             </div><!--/.new-cars-txt-->
                         </div><!--/.col-->
                     </div><!--/.row-->
                 </div><!--/.single-new-cars-item-->
             </div><!--/.new-cars-item-->
-            {% endfor %}
         </div><!--/.new-cars-content-->
     </div><!--/.container-->
 </section><!--/#new-cars-->
-{% endfor %}
 {% endblock %}
