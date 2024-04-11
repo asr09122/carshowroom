@@ -113,7 +113,7 @@
 					<h2>CARVILLA</h2>
 					<p>
 						"Crafting Opulence, Elevating Drives: Your Sanctuary of Luxury awaits at Our Showroom."
-					<button class="welcome-btn" onclick="window.location.href='#'">contact us</button>
+					<button class="welcome-btn" onclick="scrollToFooter()">contact us</button>
 				</div>
 			</div>
 {% block form %}
@@ -303,7 +303,15 @@
 
         <!--Custom JS-->
         <script src="{%static 'carversal/js/custom.js' %}"></script>
+	<script>
+    function scrollToFooter() {
+        var footer = document.getElementById('contact');
+        footer.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
 
     </body>
+
 
 </html>
