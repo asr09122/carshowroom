@@ -174,13 +174,13 @@ def remove_from_cart(request, item_id):
     return redirect('carversal:vc')
 
 
-def details(request):
-    year = request.GET.get('year1', '')
-    style = request.GET.get('style1', '').lower()
-    make = request.GET.get('make1', '').lower()
-    condition = request.GET.get('condition1', '').lower()
-    model = request.GET.get('model1', '').lower()
-    filtered_cars = Car.objects.all()
+def details(request, car_id):
+    year = request.GET.get('Year', '')
+    style = request.GET.get('Style', '').lower()
+    make = request.GET.get('Make', '').lower()
+    condition = request.GET.get('Condition', '').lower()
+    model = request.GET.get('Model', '').lower()
+    filtered_cars = Car.objects.filter(id=car_id)
     if year:
         filtered_cars = filtered_cars.filter(year=year)
     if style:
@@ -193,4 +193,5 @@ def details(request):
         filtered_cars = filtered_cars.filter(model=model)
 
     context = {'cars': filtered_cars}
-    return render(request, "carversal/details.html", context)
+    return render(request, "carversal/search.html", context)
+

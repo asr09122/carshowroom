@@ -181,8 +181,8 @@
 
 
 
-		<!--featured-cars start -->
-	<section id="featured-cars" class="featured-cars">
+<!--featured-cars start -->
+<section id="featured-cars" class="featured-cars">
     <div class="container">
         <div class="section-header">
             <p>checkout <span>the</span> featured cars</p>
@@ -192,35 +192,37 @@
             <div class="row">
                 {% for car in cars %}
                     <div class="col-lg-3 col-md-4 col-sm-6">
-                        <form method="GET">
-                            <input type="hidden" name="year1" value="{{ car.year }}">
-                            <input type="hidden" name="style1" value="{{ car.style }}">
-                            <input type="hidden" name="make1" value="{{ car.make }}">
-                            <input type="hidden" name="condition1" value="{{ car.condition }}">
-                            <input type="hidden" name="model1" value="{{ car.model }}">
-
-                            <button type="submit" class="featured-car-button">
-                                <div class="single-featured-cars">
-                                    <div class="featured-img-box">
-                                        <div class="featured-cars-img">
-                                            <img src="{{ car.image.url }}" alt="cars">
-                                        </div>
-                                        <div class="featured-model-info">
-                                            <p>
-                                                model: {{ car.year }}
-                                                <span class="featured-mi-span">{{ car.mileage }} mi</span>
-                                                <span class="featured-hp-span">{{ car.horsepower }}HP</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="featured-cars-txt">
-                                        <h2><a href="#"><span>{{ car.model }}</span></a></h2>
-                                        <h3>Rs{{ car.price }}</h3>
-                                        <p>{{ car.description }}</p>
-                                    </div>
+                        <div class="single-featured-cars">
+                            <div class="featured-img-box">
+                                <div class="featured-cars-img">
+                                    <img src="{{ car.image.url }}" alt="cars">
                                 </div>
-                            </button>
-                        </form>
+                                <div class="featured-model-info">
+                                    <p>
+                                        model: {{ car.year }}
+                                        <span class="featured-mi-span">{{ car.mileage }} mi</span>
+                                        <span class="featured-hp-span">{{ car.horsepower }}HP</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="featured-cars-txt">
+                             <form method="GET" action="{% url 'carversal:details' car.id %}">
+                                    <input type="hidden" name="Year" value="{{ car.year }}">
+                                    <input type="hidden" name="Style" value="{{ car.style }}">
+                                    <input type="hidden" name="Make" value="{{ car.make }}">
+                                    <input type="hidden" name="Condition" value="{{ car.condition }}">
+                                    <input type="hidden" name="Model" value="{{ car.model }}">
+                                    <button type="submit" class="featured-car-button">
+                                        <h2>{{car.model}}</h2>
+                                    </button>
+                                </form>
+                                <div class="car-details" style="margin-top: 10px;">
+                                 <h3>Rs{{ car.price }}</h3>
+                                <p>{{ car.desc }}</p>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                     {% if forloop.counter|divisibleby:4 and not forloop.last %}
                         </div><div class="row">
@@ -230,6 +232,7 @@
         </div><!--/.featured-cars-content-->
     </div><!--/.container-->
 </section><!--/.featured-cars-->
+
 
 
 		<!-- clients-say strat -->
