@@ -11,7 +11,6 @@ from django.utils import timezone
 User = get_user_model()
 
 
-@login_required
 def index(request):
     cars = Car.objects.all()
     n = len(cars)

@@ -96,6 +96,8 @@
 									<li><a href="{% url 'carversal:add_car' %}">Add Car</a></li>
 									<li><a href="{% url 'carversal:logout' %}">Logout</a></li>
 									<li><a href="{% url 'carversal:vc' %}">cart</a></li>
+									{% else%}
+									<li><a href="{% url 'carversal:login' %}">login</a></li>
 									{% endif %}
 				                </ul><!--/.nav -->
 				            </div><!-- /.navbar-collapse -->
