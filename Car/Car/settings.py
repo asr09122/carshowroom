@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "carversal"
-
+    "carversal",
+    "core",
 ]
 
 MIDDLEWARE = [
@@ -127,3 +127,7 @@ LOGIN_URL='carversal:login'
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Email Configuration (Console for development)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST_USER = 'noreply@gmail.com'

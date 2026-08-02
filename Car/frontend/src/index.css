@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --font-family: 'Montserrat', sans-serif;
+  --bg-dark: #0f0f11;
+  --bg-panel: rgba(20, 20, 23, 0.85);
+  --text-main: #f4f4f5;
+  --text-muted: #a1a1aa;
+  --accent-gold: #c5a880;
+  --accent-gold-hover: #d6b991;
+  --border-light: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.title-serif {
+  font-family: 'Montserrat', serif;
+  font-weight: 300;
+  letter-spacing: 4px;
+}
+
+/* Layouts & Panels */
+.luxury-panel {
+  background: var(--bg-panel);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.luxury-nav {
+  background: rgba(15, 15, 17, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* Buttons */
+.btn-gold {
+  background: var(--accent-gold);
+  color: #000;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 2px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-gold:hover {
+  background: var(--accent-gold-hover);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-main);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid var(--border-light);
+  border-radius: 2px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+/* Inputs */
+.input-luxury {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-light);
+  border-radius: 2px;
+  padding: 14px 16px;
+  color: var(--text-main);
+  font-family: var(--font-family);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-luxury:focus {
+  border-color: var(--accent-gold);
+}
+
+.input-luxury::placeholder {
+  color: #52525b;
+}
+
+/* Background Image Layer */
+.bg-image-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background-image: url('/banner.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-image-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: linear-gradient(to bottom, rgba(15, 15, 17, 0.7) 0%, rgba(15, 15, 17, 1) 100%);
+}
+
+.auth-bg-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Card Hover */
+.car-card {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.car-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  border-color: var(--border-strong);
+}
+
+.car-image-container img {
+  transition: transform 0.8s ease;
+}
+.car-card:hover .car-image-container img {
+  transform: scale(1.05);
+}

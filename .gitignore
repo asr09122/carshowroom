@@ -1,0 +1,14 @@
+.DS_Store
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+db.sqlite3
+Car/db.sqlite3
+node_modules/
+dist/
+build/
+.idea/
+.vs/

@@ -15,12 +15,14 @@ class Car(models.Model):
     desc = models.CharField(max_length=500)
     pub_date = models.DateField(default=timezone.now)
     image = models.ImageField(upload_to="carversal/images", default="default_image.jpg")
+    is_reserved = models.BooleanField(default=False)
+    reserved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='reserved_cars')
 
     def __str__(self):
         return f"{self.make} {self.model}"
 
     def pre_booking_amount(self):
-        return float(self.price) * 0.00001  # Calculate 0.001% of actual price
+        return float(self.price) * 0.10  # Calculate 10% of actual price
 
 
 
